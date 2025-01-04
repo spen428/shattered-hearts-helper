@@ -1,0 +1,25 @@
+{
+  "name": "alt1-citadel-watch",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "dependencies": {
+    "alt1": "0.0.10",
+    "@alt1/base": "1.0.0-alpha.7",
+    "@alt1/chatbox": "1.0.0-alpha.7",
+    "@alt1/ocr": "1.0.0-alpha.7",
+    "@alt1/imagedata-loader": "1.0.0-alpha.6",
+    "axios": "1.7.4"
+  },
+  "devDependencies": {
+    "@types/node": "20.12.7",
+    "prettier": "3.2.5",
+    "sharp": "0.33.3",
+    "ts-loader": "9.5.1",
+    "typescript": "5.4.5",
+    "webpack": "5.94.0",
+    "webpack-cli": "5.1.4"
+  }
+}
