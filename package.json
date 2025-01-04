@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "build": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "test": "webpack --config webpack.config.js webpack-test.config.js --merge --watch"
   },
   "dependencies": {
     "alt1": "0.0.10",

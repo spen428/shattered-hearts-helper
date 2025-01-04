@@ -13,8 +13,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    // library means that the exports from the entry file can be accessed from outside, in this case from the global scope as window.TestApp
-    library: { type: "umd", name: "TestApp" },
+    library: { type: "umd", name: require('./package.json').name },
   },
   devtool: false,
   mode: "development",
