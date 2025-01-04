@@ -40,6 +40,8 @@ export const bagState = {
     },
 };
 
+export type RockBag = { [key: string]: number };
+
 class StatueCollectionBagImageProcessor {
     public processScreenshot(img: ImgRef) {
         const match = img.findSubimage(subImages.statueCollectionBagHeader)[0];
@@ -49,39 +51,47 @@ class StatueCollectionBagImageProcessor {
 
         Logger.writeLog("The Statue Collection Bag UI is open");
 
+        let rocks: RockBag = bagState.strangeRocks;
+        if (!!img.findSubimage(subImages.goldenRocksTabSelected)[0]) {
+            rocks = bagState.goldenRocks;
+        }
+
         let boxY = match.y + 55;
         let boxX = match.x;
 
-        const strangeRockBoundingBoxes = this.getRockBoundingBoxes(bagState.strangeRocks, boxX, boxY);
+        const rockBoundingBoxes = this.getRockBoundingBoxes(rocks, boxX, boxY);
 
-        for (const bb of strangeRockBoundingBoxes) {
+        for (const bb of rockBoundingBoxes) {
             const matches = img.findSubimage(subImages.whitePixel, bb.x, bb.y, bb.width, bb.height);
             if (matches.length) {
-                Logger.writeLog(`${bb.skill} ${bb.rockNumber}/2 is populated!`);
-                bagState.strangeRocks[bb.skill] = bb.rockNumber;
+                Logger.writeLog(`${bb.skill} ${bb.rockNumber}/2 found!`);
+                rocks[bb.skill] = bb.rockNumber;
+            } else if (bb.rockNumber === 1) {
+                Logger.writeLog(`${bb.skill} has no rocks!`);
+                rocks[bb.skill] = 0;
             }
         }
 
-        for (const bb of strangeRockBoundingBoxes.filter(x => x.rockNumber === 1)) {
-            let statusText = `${bagState.strangeRocks[bb.skill]}/2`;
+        for (const bb of rockBoundingBoxes.filter(x => x.rockNumber === 1)) {
+            let statusText = `${rocks[bb.skill]}/2`;
             Logger.writeLog(bb.skill + ":" + statusText);
         }
 
         if (window.alt1) {
             alt1.overLayRect(mixColor(255, 255, 255), boxX, boxY, 485, 270, CAPTURE_INTERVAL_MS, 2);
 
-            for (const bb of strangeRockBoundingBoxes) {
+            for (const bb of rockBoundingBoxes) {
                 alt1.overLayRect(mixColor(0, 0, 255), bb.x, bb.y, bb.width, bb.height, CAPTURE_INTERVAL_MS, 1);
             }
 
-            for (const bb of strangeRockBoundingBoxes.filter(x => x.rockNumber === 1)) {
-                let statusText = `${bagState.strangeRocks[bb.skill]}/2`;
+            for (const bb of rockBoundingBoxes.filter(x => x.rockNumber === 1)) {
+                let statusText = `${rocks[bb.skill]}/2`;
                 alt1.overLayText(statusText, mixColor(255, 200, 0), 10, bb.x + 74, bb.y + 4, CAPTURE_INTERVAL_MS);
             }
         }
     }
 
-    private getRockBoundingBoxes(rocks: { [key: string]: number }, boxX: number, boxY: number) {
+    private getRockBoundingBoxes(rocks: RockBag, boxX: number, boxY: number) {
         const boundingBoxes: {
             skill: string,
             rockNumber: 1 | 2,

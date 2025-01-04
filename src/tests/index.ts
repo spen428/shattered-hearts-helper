@@ -1,5 +1,5 @@
 import {ImageDetect, ImgRefData} from "@alt1/base";
-import StatueCollectionBagImageProcessor, {bagState} from "../util/StatueCollectionBagImageProcessor";
+import StatueCollectionBagImageProcessor, {bagState, RockBag} from "../util/StatueCollectionBagImageProcessor";
 
 const testImages = ImageDetect.webpackImages({
     strangeRocksEmpty: require("../tests/res/strange-empty.data.png"),
@@ -14,11 +14,11 @@ function assert(bool: boolean, msg: string) {
     }
 }
 
-function assertEmpty(rocks: { [key: string]: number }) {
+function assertEmpty(rocks: RockBag) {
     assertRockCount(rocks, 0);
 }
 
-function assertRockCount(rocks: { [key: string]: number }, expected: number) {
+function assertRockCount(rocks: RockBag, expected: number) {
     const rockCount = Object.keys(rocks).reduce((acc, key) => acc + rocks[key], 0);
     assert(rockCount === expected, `Bag contained ${rockCount} rocks, expected ${expected}`);
 }
@@ -46,6 +46,10 @@ function runTests() {
 
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.goldenRocksEmpty));
     assertRockCount(bagState.strangeRocks, 2);
+    assertEmpty(bagState.goldenRocks);
+
+    StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.strangeRocksEmpty));
+    assertEmpty(bagState.strangeRocks);
     assertEmpty(bagState.goldenRocks);
 }
 
