@@ -33,6 +33,8 @@ class StatueCollectionBagImageProcessor {
 
         let boxY = match.y + 55;
         let boxX = match.x;
+        let boxW = 485;
+        let boxH = 270;
 
         const rockBoundingBoxes = this.getRockBoundingBoxes(rockBag, boxX, boxY);
 
@@ -42,7 +44,7 @@ class StatueCollectionBagImageProcessor {
         }
 
         if (window.alt1) {
-            alt1.overLayRect(mixColor(255, 255, 255), boxX, boxY, 485, 270, CAPTURE_INTERVAL_MS, 2);
+            alt1.overLayRect(mixColor(255, 255, 255), boxX, boxY, boxW, boxH, CAPTURE_INTERVAL_MS, 2);
 
             for (const boundingBox of rockBoundingBoxes) {
                 let rockIsPresent = rockBag[boundingBox.skill][boundingBox.rockOrdinal];
