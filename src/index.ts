@@ -21,10 +21,10 @@ function start() {
     } else {
         const addAppUrl = `alt1://addapp/${new URL("./appconfig.json", document.location.href).href}`;
         document
-            .getElementById("output")
+            .getElementById("log")
             .insertAdjacentHTML(
                 "beforeend",
-                `Alt1 not detected, click <a href='${addAppUrl}'>here</a> to add this app to Alt1.`,
+                `<span>Alt1 not detected, click <a href='${addAppUrl}'>here</a> to add this app to Alt1.</span>`,
             );
     }
 }

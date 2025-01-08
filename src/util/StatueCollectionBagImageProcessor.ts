@@ -1,49 +1,21 @@
 import {ImgRef, mixColor} from "@alt1/base";
 import Logger from "./Logger";
 import {CAPTURE_INTERVAL_MS, subImages} from "../config";
-
-export const bagState = {
-    strangeRocks: {
-        agility: 0,
-        construction: 0,
-        cooking: 0,
-        crafting: 0,
-        farming: 0,
-        firemaking: 0,
-        fishing: 0,
-        fletching: 0,
-        herblore: 0,
-        hunter: 0,
-        mining: 0,
-        runecrafting: 0,
-        smithing: 0,
-        thieving: 0,
-        woodcutting: 0,
-    },
-    goldenRocks: {
-        agility: 0,
-        construction: 0,
-        crafting: 0,
-        divination: 0,
-        dungeoneering: 0,
-        farming: 0,
-        herblore: 0,
-        magic: 0,
-        melee: 0,
-        mining: 0,
-        prayer: 0,
-        ranged: 0,
-        slayer: 0,
-        smithing: 0,
-        summoning: 0,
-        woodcutting: 0,
-    },
-};
-
-export type RockBag = { [key: string]: number };
+import ChatBoxProcessor from "./ChatBoxProcessor";
+import {bagState, RockBag} from "./StatueCollectionBag";
 
 class StatueCollectionBagImageProcessor {
     public processScreenshot(img: ImgRef) {
+        this.processChatBox(img);
+        this.processStatueCollectionBagUi(img);
+    }
+
+    private processChatBox(img: ImgRef) {
+        const lines = ChatBoxProcessor.getChatLines(img);
+        lines.forEach(line => Logger.writeLog(line));
+    }
+
+    private processStatueCollectionBagUi(img: ImgRef) {
         const match = img.findSubimage(subImages.statueCollectionBagHeader)[0];
         if (!match) {
             return;
@@ -51,42 +23,37 @@ class StatueCollectionBagImageProcessor {
 
         Logger.writeLog("The Statue Collection Bag UI is open");
 
-        let rocks: RockBag = bagState.strangeRocks;
+        let rockBag: RockBag = bagState.strangeRocks;
         if (!!img.findSubimage(subImages.goldenRocksTabSelected)[0]) {
-            rocks = bagState.goldenRocks;
+            rockBag = bagState.goldenRocks;
+            Logger.writeLog("Golden rocks tab is open");
+        } else {
+            Logger.writeLog("Strange rocks tab is open");
         }
 
         let boxY = match.y + 55;
         let boxX = match.x;
 
-        const rockBoundingBoxes = this.getRockBoundingBoxes(rocks, boxX, boxY);
+        const rockBoundingBoxes = this.getRockBoundingBoxes(rockBag, boxX, boxY);
 
-        for (const bb of rockBoundingBoxes) {
-            const matches = img.findSubimage(subImages.whitePixel, bb.x, bb.y, bb.width, bb.height);
-            if (matches.length) {
-                Logger.writeLog(`${bb.skill} ${bb.rockNumber}/2 found!`);
-                rocks[bb.skill] = bb.rockNumber;
-            } else if (bb.rockNumber === 1) {
-                Logger.writeLog(`${bb.skill} has no rocks!`);
-                rocks[bb.skill] = 0;
-            }
-        }
-
-        for (const bb of rockBoundingBoxes.filter(x => x.rockNumber === 1)) {
-            let statusText = `${rocks[bb.skill]}/2`;
-            Logger.writeLog(bb.skill + ":" + statusText);
+        for (const boundingBox of rockBoundingBoxes) {
+            const matches = img.findSubimage(subImages.whitePixel, boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
+            rockBag[boundingBox.skill][boundingBox.rockOrdinal] = matches.length > 0;
         }
 
         if (window.alt1) {
             alt1.overLayRect(mixColor(255, 255, 255), boxX, boxY, 485, 270, CAPTURE_INTERVAL_MS, 2);
 
-            for (const bb of rockBoundingBoxes) {
-                alt1.overLayRect(mixColor(0, 0, 255), bb.x, bb.y, bb.width, bb.height, CAPTURE_INTERVAL_MS, 1);
+            for (const boundingBox of rockBoundingBoxes) {
+                let rockIsPresent = rockBag[boundingBox.skill][boundingBox.rockOrdinal];
+                let color = rockIsPresent ? mixColor(0, 255, 0) : mixColor(0, 0, 255);
+                alt1.overLayRect(color, boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height, CAPTURE_INTERVAL_MS, 1);
             }
 
-            for (const bb of rockBoundingBoxes.filter(x => x.rockNumber === 1)) {
-                let statusText = `${rocks[bb.skill]}/2`;
-                alt1.overLayText(statusText, mixColor(255, 200, 0), 10, bb.x + 74, bb.y + 4, CAPTURE_INTERVAL_MS);
+            for (const boundingBox of rockBoundingBoxes.filter(x => x.rockOrdinal === "first")) {
+                let rockCount = (rockBag[boundingBox.skill].first ? 1 : 0) + (rockBag[boundingBox.skill].second ? 1 : 0);
+                let statusText = `${rockCount}/2`;
+                alt1.overLayText(statusText, mixColor(255, 200, 0), 10, boundingBox.x + 74, boundingBox.y + 4, CAPTURE_INTERVAL_MS);
             }
         }
     }
@@ -94,7 +61,7 @@ class StatueCollectionBagImageProcessor {
     private getRockBoundingBoxes(rocks: RockBag, boxX: number, boxY: number) {
         const boundingBoxes: {
             skill: string,
-            rockNumber: 1 | 2,
+            rockOrdinal: 'first' | "second",
             x: number,
             y: number,
             width: number,
@@ -113,8 +80,8 @@ class StatueCollectionBagImageProcessor {
             let y = boxY + 7 + (offset * size);
 
             let skill = keys[i];
-            boundingBoxes.push({x, y, width: size, height: size, rockNumber: 1, skill});
-            boundingBoxes.push({x: x + size, y, width: size, height: size, rockNumber: 2, skill});
+            boundingBoxes.push({x, y, width: size, height: size, rockOrdinal: "first", skill});
+            boundingBoxes.push({x: x + size, y, width: size, height: size, rockOrdinal: "second", skill});
         }
 
         return boundingBoxes;
