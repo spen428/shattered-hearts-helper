@@ -37,8 +37,8 @@ class StatueCollectionBagImageProcessor {
         const rockBoundingBoxes = this.getRockBoundingBoxes(rockBag, boxX, boxY);
 
         for (const boundingBox of rockBoundingBoxes) {
-            const matches = img.findSubimage(subImages.whitePixel, boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
-            rockBag[boundingBox.skill][boundingBox.rockOrdinal] = matches.length > 0;
+            let imageData = img.toData(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
+            rockBag[boundingBox.skill][boundingBox.rockOrdinal] = this.containsWhitePixel(imageData);
         }
 
         if (window.alt1) {
@@ -85,6 +85,17 @@ class StatueCollectionBagImageProcessor {
         }
 
         return boundingBoxes;
+    }
+
+    private containsWhitePixel(imageData: ImageData) {
+        for (let x = 0; x < imageData.width; x++) {
+            for (let y = 0; y < imageData.height; y++) {
+                let pixel = imageData.getPixel(x,y);
+                if (pixel.every(value => value === 255)) {
+                    return true;
+                }
+            }
+        }
     }
 }
 
