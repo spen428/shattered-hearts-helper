@@ -4,6 +4,7 @@ import "./appconfig.json";
 import "./icon.png";
 import StatueCollectionBagImageProcessor from "./util/StatueCollectionBagImageProcessor";
 import {CAPTURE_INTERVAL_MS} from "./config";
+import UiRenderer from "./util/UiRenderer";
 
 function captureAndProcessGameWindow() {
     if (!window.alt1) {
@@ -12,6 +13,7 @@ function captureAndProcessGameWindow() {
 
     const img = captureHoldFullRs();
     StatueCollectionBagImageProcessor.processScreenshot(img);
+    UiRenderer.rerender(document);
 }
 
 function start() {
