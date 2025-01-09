@@ -42,18 +42,18 @@ function runTests() {
 
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.strangeRocksPartial));
     assertRockCount(bagState.strangeRocks, 2);
-    assert(bagState.strangeRocks.farming.first, "Expected 1st farming rock");
-    assert(bagState.strangeRocks.smithing.first, "Expected 1st smithing rock");
+    assert(bagState.strangeRocks.Farming.first, "Expected 1st farming rock");
+    assert(bagState.strangeRocks.Smithing.first, "Expected 1st smithing rock");
     assertEmpty(bagState.goldenRocks);
 
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.goldenRocksPartial));
     assertRockCount(bagState.strangeRocks, 2);
     assertRockCount(bagState.goldenRocks, 5);
-    assert(bagState.goldenRocks.crafting.first, "Expected 1st golden crafting rock");
-    assert(bagState.goldenRocks.melee.first, "Expected 1st melee rocks");
-    assert(bagState.goldenRocks.melee.second, "Expected 2nd melee rocks");
-    assert(bagState.goldenRocks.prayer.first, "Expected 1st prayer rocks");
-    assert(bagState.goldenRocks.prayer.second, "Expected 2nd prayer rocks");
+    assert(bagState.goldenRocks.Crafting.first, "Expected 1st golden crafting rock");
+    assert(bagState.goldenRocks.Melee.first, "Expected 1st melee rocks");
+    assert(bagState.goldenRocks.Melee.second, "Expected 2nd melee rocks");
+    assert(bagState.goldenRocks.Prayer.first, "Expected 1st prayer rocks");
+    assert(bagState.goldenRocks.Prayer.second, "Expected 2nd prayer rocks");
 
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.goldenRocksEmpty));
     assertRockCount(bagState.strangeRocks, 2);
@@ -65,7 +65,7 @@ function runTests() {
 
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.strangeRocksMiningSecondOnly));
     assertRockCount(bagState.strangeRocks, 1);
-    assert(bagState.strangeRocks.mining.second, "Expected only second mining rock");
+    assert(bagState.strangeRocks.Mining.second, "Expected only second mining rock");
     assertEmpty(bagState.goldenRocks);
 
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.strangeRocksEmpty));
@@ -75,23 +75,23 @@ function runTests() {
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.chatRockGained));
     assertEmpty(bagState.strangeRocks);
     assertRockCount(bagState.goldenRocks, 2);
-    assert(bagState.goldenRocks.agility.first, "Expected 1st golden agility rocks");
-    assert(bagState.goldenRocks.agility.second, "Expected 2nd golden agility rocks");
+    assert(bagState.goldenRocks.Agility.first, "Expected 1st golden agility rocks");
+    assert(bagState.goldenRocks.Agility.second, "Expected 2nd golden agility rocks");
 
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.chatRockGained2));
     assertRockCount(bagState.strangeRocks, 1);
-    assert(bagState.goldenRocks.agility.first, "Expected 1st agility rock");
+    assert(bagState.goldenRocks.Agility.first, "Expected 1st agility rock");
     assertRockCount(bagState.goldenRocks, 2);
-    assert(bagState.goldenRocks.agility.first, "Expected 1st golden agility rocks");
-    assert(bagState.goldenRocks.agility.second, "Expected 2nd golden agility rocks");
+    assert(bagState.goldenRocks.Agility.first, "Expected 1st golden agility rocks");
+    assert(bagState.goldenRocks.Agility.second, "Expected 2nd golden agility rocks");
 
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.chatRockGained3));
     assertRockCount(bagState.strangeRocks, 2);
-    assert(bagState.strangeRocks.agility.first, "Expected 1st agility rocks");
-    assert(bagState.strangeRocks.agility.second, "Expected 2nd agility rocks");
+    assert(bagState.strangeRocks.Agility.first, "Expected 1st agility rocks");
+    assert(bagState.strangeRocks.Agility.second, "Expected 2nd agility rocks");
     assertRockCount(bagState.goldenRocks, 2);
-    assert(bagState.goldenRocks.agility.first, "Expected 1st golden agility rocks");
-    assert(bagState.goldenRocks.agility.second, "Expected 2nd golden agility rocks");
+    assert(bagState.goldenRocks.Agility.first, "Expected 1st golden agility rocks");
+    assert(bagState.goldenRocks.Agility.second, "Expected 2nd golden agility rocks");
 }
 
 testImages.promise.then(() => {
