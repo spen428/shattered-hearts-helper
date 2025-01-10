@@ -1,6 +1,6 @@
-import ChatBoxReader, { ChatLine } from "@alt1/chatbox";
-import { ImgRef } from "@alt1/base";
+import ChatBoxReader, { ChatLine } from "alt1/chatbox";
 import Logger from "./Logger";
+import { ImgRef } from "alt1";
 
 class ChatBoxProcessor {
   private readonly chatBoxReader = new ChatBoxReader();
