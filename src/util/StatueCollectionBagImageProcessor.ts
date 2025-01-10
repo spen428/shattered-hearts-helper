@@ -10,9 +10,44 @@ class StatueCollectionBagImageProcessor {
     this.processStatueCollectionBagUi(img);
   }
 
+  private readonly strangeRockChatRegex =
+    /You find a (strange) rock \(([A-Za-z]+)\) and add it to your bag/;
+  private readonly goldenRockChatRegex =
+    /You find a (golden) rock and add it to your bag \(([A-Za-z]+)\)/;
+
   private processChatBox(img: ImgRef) {
-    const lines = ChatBoxProcessor.getChatLines(img);
-    lines.forEach((line) => Logger.writeLog(line));
+    let chatLines = ChatBoxProcessor.getChatLines(img);
+
+    const lines = chatLines
+      .filter((line) => line.text.includes("You find a"))
+      .map((line) => {
+        let match = line.text.match(this.strangeRockChatRegex);
+        if (match) {
+          return { line, match };
+        }
+
+        return { line, match: line.text.match(this.goldenRockChatRegex) };
+      })
+      .filter((line) => !!line.match);
+
+    lines.forEach((line) => {
+      const [_, rockType, skillName] = line.match;
+      Logger.writeLog(line.line.text);
+
+      let rockBag: RockBag = bagState.strangeRocks;
+      if (rockType === "golden") {
+        rockBag = bagState.goldenRocks;
+      }
+
+      if (!rockBag[skillName].first) {
+        rockBag[skillName].first = true;
+        Logger.writeLog(`Found first ${rockType} ${skillName} rock!`);
+        return;
+      }
+
+      rockBag[skillName].second = true;
+      Logger.writeLog(`Found second ${rockType} ${skillName} rock!`);
+    });
   }
 
   private processStatueCollectionBagUi(img: ImgRef) {
