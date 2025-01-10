@@ -50,10 +50,10 @@ function runTests() {
     assertRockCount(bagState.strangeRocks, 2);
     assertRockCount(bagState.goldenRocks, 5);
     assert(bagState.goldenRocks.Crafting.first, "Expected 1st golden crafting rock");
-    assert(bagState.goldenRocks.Melee.first, "Expected 1st melee rocks");
-    assert(bagState.goldenRocks.Melee.second, "Expected 2nd melee rocks");
-    assert(bagState.goldenRocks.Prayer.first, "Expected 1st prayer rocks");
-    assert(bagState.goldenRocks.Prayer.second, "Expected 2nd prayer rocks");
+    assert(bagState.goldenRocks.Melee.first, "Expected 1st melee rock");
+    assert(bagState.goldenRocks.Melee.second, "Expected 2nd melee rock");
+    assert(bagState.goldenRocks.Prayer.first, "Expected 1st prayer rock");
+    assert(bagState.goldenRocks.Prayer.second, "Expected 2nd prayer rock");
 
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.goldenRocksEmpty));
     assertRockCount(bagState.strangeRocks, 2);
@@ -75,23 +75,23 @@ function runTests() {
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.chatRockGained));
     assertEmpty(bagState.strangeRocks);
     assertRockCount(bagState.goldenRocks, 2);
-    assert(bagState.goldenRocks.Agility.first, "Expected 1st golden agility rocks");
-    assert(bagState.goldenRocks.Agility.second, "Expected 2nd golden agility rocks");
+    assert(bagState.goldenRocks.Agility.first, "Expected 1st golden agility rock");
+    assert(bagState.goldenRocks.Agility.second, "Expected 2nd golden agility rock");
 
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.chatRockGained2));
     assertRockCount(bagState.strangeRocks, 1);
     assert(bagState.goldenRocks.Agility.first, "Expected 1st agility rock");
     assertRockCount(bagState.goldenRocks, 2);
-    assert(bagState.goldenRocks.Agility.first, "Expected 1st golden agility rocks");
-    assert(bagState.goldenRocks.Agility.second, "Expected 2nd golden agility rocks");
+    assert(bagState.goldenRocks.Agility.first, "Expected 1st golden agility rock");
+    assert(bagState.goldenRocks.Agility.second, "Expected 2nd golden agility rock");
 
     StatueCollectionBagImageProcessor.processScreenshot(new ImgRefData(testImages.chatRockGained3));
     assertRockCount(bagState.strangeRocks, 2);
-    assert(bagState.strangeRocks.Agility.first, "Expected 1st agility rocks");
-    assert(bagState.strangeRocks.Agility.second, "Expected 2nd agility rocks");
+    assert(bagState.strangeRocks.Agility.first, "Expected 1st agility rock");
+    assert(bagState.strangeRocks.Agility.second, "Expected 2nd agility rock");
     assertRockCount(bagState.goldenRocks, 2);
-    assert(bagState.goldenRocks.Agility.first, "Expected 1st golden agility rocks");
-    assert(bagState.goldenRocks.Agility.second, "Expected 2nd golden agility rocks");
+    assert(bagState.goldenRocks.Agility.first, "Expected 1st golden agility rock");
+    assert(bagState.goldenRocks.Agility.second, "Expected 2nd golden agility rock");
 }
 
 testImages.promise.then(() => {
