@@ -14,7 +14,7 @@ class UiRenderer {
           const imgElement = document.querySelector(
             `#${bag.key}-${skill}-${rockOrdinal}`,
           ) as HTMLImageElement;
-          imgElement.style.opacity = isRockPresent ? "1" : "0.125";
+          imgElement.className = isRockPresent ? "rock-in-bag" : "rock-missing";
         }
       }
     }
