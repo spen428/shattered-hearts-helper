@@ -39,6 +39,14 @@ export const bagState = {
 };
 
 class StatueCollectionBag {
+  mostRecent: {
+    strange: Rock | null;
+    golden: Rock | null;
+  } = {
+    strange: null,
+    golden: null,
+  };
+
   enumerate(): Rock[] {
     const rocks: Rock[] = [];
     const bags = {
@@ -64,13 +72,76 @@ class StatueCollectionBag {
 
     return rocks;
   }
+
+  getRockBag(rockType: RockType | string) {
+    if (rockType === "golden") {
+      return bagState.goldenRocks;
+    }
+    if (rockType === "strange") {
+      return bagState.strangeRocks;
+    }
+    throw new Error("Argument error");
+  }
+
+  getRockIsPresent(
+    rockType: RockType,
+    skill: string,
+    rockOrdinal: RockOrdinal,
+  ): boolean {
+    const rockBag = this.getRockBag(rockType);
+    return rockBag[skill][rockOrdinal];
+  }
+
+  setRockIsPresent(
+    rockType: RockType,
+    skill: string,
+    rockOrdinal: RockOrdinal,
+    isPresent: boolean,
+  ) {
+    const rockBag = this.getRockBag(rockType);
+    rockBag[skill][rockOrdinal] = isPresent;
+  }
+
+  getRockCount(rockType: RockType, skill: string): number {
+    let count = 0;
+    if (this.getRockIsPresent(rockType, skill, "first")) {
+      count++;
+    }
+    if (this.getRockIsPresent(rockType, skill, "second")) {
+      count++;
+    }
+    return count;
+  }
+
+  addRock(rockType: RockType | string, skillName: string): Rock {
+    const rockBag = this.getRockBag(rockType);
+
+    let ordinal: RockOrdinal = "second";
+    if (!rockBag[skillName].first) {
+      ordinal = "first";
+    }
+
+    rockBag[skillName][ordinal] = true;
+
+    this.mostRecent[rockType] = {
+      type: rockType as RockType,
+      skill: skillName,
+      ordinal,
+      isPresent: true,
+    };
+    return this.mostRecent[rockType];
+  }
+
+  getSkills(rockType: RockType): string[] {
+    return Object.keys(this.getRockBag(rockType));
+  }
 }
 
 const rockTypes = ["strange", "golden"] as const;
-type RockType = typeof rockTypes[number];
+export type RockType = (typeof rockTypes)[number];
 
 const rockOrdinals = ["first", "second"] as const;
-type RockOrdinal = typeof rockOrdinals[number];
+export type RockOrdinal = (typeof rockOrdinals)[number];
 
 export interface Rock {
   type: RockType;

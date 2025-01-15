@@ -1,7 +1,7 @@
 import Logger from "./Logger";
 import { CAPTURE_INTERVAL_MS, subImages } from "../config";
 import ChatBoxProcessor from "./ChatBoxProcessor";
-import { bagState, RockBag } from "./StatueCollectionBag";
+import StatueCollectionBag, { RockType } from "./StatueCollectionBag";
 import { ImgRef, mixColor } from "alt1";
 
 class StatueCollectionBagImageProcessor {
@@ -34,19 +34,8 @@ class StatueCollectionBagImageProcessor {
       const [_, rockType, skillName] = line.match;
       Logger.writeLog(line.line.text);
 
-      let rockBag: RockBag = bagState.strangeRocks;
-      if (rockType === "golden") {
-        rockBag = bagState.goldenRocks;
-      }
-
-      if (!rockBag[skillName].first) {
-        rockBag[skillName].first = true;
-        Logger.writeLog(`Found first ${rockType} ${skillName} rock!`);
-        return;
-      }
-
-      rockBag[skillName].second = true;
-      Logger.writeLog(`Found second ${rockType} ${skillName} rock!`);
+      const rock = StatueCollectionBag.addRock(rockType, skillName);
+      Logger.writeLog(`Found ${rock.ordinal} ${rock.type} ${rock.skill} rock!`);
     });
   }
 
@@ -58,9 +47,9 @@ class StatueCollectionBagImageProcessor {
 
     Logger.writeLog("The Statue Collection Bag UI is open");
 
-    let rockBag: RockBag = bagState.strangeRocks;
+    let rockType: RockType = "strange";
     if (!!img.findSubimage(subImages.goldenRocksTabSelected)[0]) {
-      rockBag = bagState.goldenRocks;
+      rockType = "golden";
       Logger.writeLog("Golden rocks tab is open");
     } else {
       Logger.writeLog("Strange rocks tab is open");
@@ -71,7 +60,7 @@ class StatueCollectionBagImageProcessor {
     let boxW = 485;
     let boxH = 270;
 
-    const rockBoundingBoxes = this.getRockBoundingBoxes(rockBag, boxX, boxY);
+    const rockBoundingBoxes = this.getRockBoundingBoxes(rockType, boxX, boxY);
 
     for (const boundingBox of rockBoundingBoxes) {
       let imageData = img.toData(
@@ -80,8 +69,12 @@ class StatueCollectionBagImageProcessor {
         boundingBox.width,
         boundingBox.height,
       );
-      rockBag[boundingBox.skill][boundingBox.rockOrdinal] =
-        this.containsWhitePixel(imageData);
+      StatueCollectionBag.setRockIsPresent(
+        rockType,
+        boundingBox.skill,
+        boundingBox.rockOrdinal,
+        this.containsWhitePixel(imageData),
+      );
     }
 
     if (window.alt1) {
@@ -96,7 +89,11 @@ class StatueCollectionBagImageProcessor {
       );
 
       for (const boundingBox of rockBoundingBoxes) {
-        let rockIsPresent = rockBag[boundingBox.skill][boundingBox.rockOrdinal];
+        let rockIsPresent = StatueCollectionBag.getRockIsPresent(
+          rockType,
+          boundingBox.skill,
+          boundingBox.rockOrdinal,
+        );
         let color = rockIsPresent ? mixColor(0, 255, 0) : mixColor(0, 0, 255);
         alt1.overLayRect(
           color,
@@ -112,9 +109,10 @@ class StatueCollectionBagImageProcessor {
       for (const boundingBox of rockBoundingBoxes.filter(
         (x) => x.rockOrdinal === "first",
       )) {
-        let rockCount =
-          (rockBag[boundingBox.skill].first ? 1 : 0) +
-          (rockBag[boundingBox.skill].second ? 1 : 0);
+        let rockCount = StatueCollectionBag.getRockCount(
+          rockType,
+          boundingBox.skill,
+        );
         let statusText = `${rockCount}/2`;
         alt1.overLayText(
           statusText,
@@ -128,7 +126,7 @@ class StatueCollectionBagImageProcessor {
     }
   }
 
-  private getRockBoundingBoxes(rocks: RockBag, boxX: number, boxY: number) {
+  private getRockBoundingBoxes(rockType: RockType, boxX: number, boxY: number) {
     const boundingBoxes: {
       skill: string;
       rockOrdinal: "first" | "second";
@@ -138,9 +136,9 @@ class StatueCollectionBagImageProcessor {
       height: number;
     }[] = [];
 
-    const keys = Object.keys(rocks);
+    const skills = StatueCollectionBag.getSkills(rockType);
 
-    for (let i = 0; i < keys.length; i++) {
+    for (let i = 0; i < skills.length; i++) {
       let x = boxX + 134;
       let offset = i % 8;
       if (i >= 8) {
@@ -149,7 +147,7 @@ class StatueCollectionBagImageProcessor {
       let size = 32;
       let y = boxY + 7 + offset * size;
 
-      let skill = keys[i];
+      let skill = skills[i];
       boundingBoxes.push({
         x,
         y,
