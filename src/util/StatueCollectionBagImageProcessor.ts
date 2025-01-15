@@ -11,7 +11,7 @@ class StatueCollectionBagImageProcessor {
   }
 
   private readonly strangeRockChatRegex =
-    /You find a (strange) rock \(([A-Za-z]+)\) and add it to your bag/;
+    /You find a (strange|golden) rock \(([A-Za-z]+)\) and add it to your bag/;
   private readonly goldenRockChatRegex =
     /You find a (golden) rock and add it to your bag \(([A-Za-z]+)\)/;
 
