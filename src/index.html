@@ -3,8 +3,12 @@
 <html>
 <head>
     <style>
+        :root {
+            --missing-rock-opacity: 0.125;
+        }
+
         html {
-            background-color: dimgray;
+            background-color: #152c3d;
         }
 
         body {
@@ -23,37 +27,42 @@
             height: 98vh;
         }
 
-        #bag .bag-row {
+        .bag-row {
             display: flex;
             align-items: center;
             gap: 0.5rem;
             margin-bottom: 0.5rem;
-        }
 
-        #bag .bag-row span {
-            display: none;
-            padding-left: 0.25rem;
-            padding-right: 1rem;
-            color: white;
-            font-size: 1rem;
-            font-family: monospace;
-        }
+            span {
+                display: none;
+                padding-left: 0.25rem;
+                padding-right: 1rem;
+                color: white;
+                font-size: 1rem;
+                font-family: monospace;
+            }
 
-        #bag .bag-row img {
-            width: 1.5rem;
-            height: 1.5rem;
-            object-fit: contain;
+            img {
+                width: 1.5rem;
+                height: 1.5rem;
+                object-fit: contain;
+                opacity: var(--missing-rock-opacity);
+
+                &:first-child {
+                    opacity: 1;
+                }
+            }
         }
 
         /*noinspection CssUnusedSymbol*/
         .rock-in-bag {
-            opacity: 1;
+            opacity: 1 !important;
             filter: drop-shadow(0px 0px 1px white);
         }
 
         /*noinspection CssUnusedSymbol*/
         .rock-missing {
-            opacity: 0.125;
+            opacity: var(--missing-rock-opacity);
         }
 
         /*noinspection CssUnusedSymbol*/
@@ -90,9 +99,11 @@
         <img src="https://runescape.wiki/images/Crafting_detail.png" style="width: 2rem; height: 2rem;"/>
         <span>Crafting</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Crafting%29.png" id="strange-Crafting-first"/>
-        <img src="https://runescape.wiki/images/Strange_rock_%28Crafting%29.png" id="strange-Crafting-second"/>
+        <img src="https://runescape.wiki/images/Strange_rock_%28Crafting%29.png" id="strange-Crafting-second"
+        />
         <img src="https://runescape.wiki/images/Golden_rock_%28Crafting%29.png" id="golden-Crafting-first"/>
-        <img src="https://runescape.wiki/images/Golden_rock_%28Crafting%29.png" id="golden-Crafting-second"/>
+        <img src="https://runescape.wiki/images/Golden_rock_%28Crafting%29.png" id="golden-Crafting-second"
+        />
     </div>
     <div class="bag-row">
         <img src="https://runescape.wiki/images/Divination_detail.png" style="width: 2rem; height: 2rem;"/>
@@ -220,6 +231,7 @@
     </div>
 </div>
 <pre id="log"></pre>
+<!--suppress HtmlUnknownTarget -->
 <script src="./main.js"></script>
 </body>
 </html>
