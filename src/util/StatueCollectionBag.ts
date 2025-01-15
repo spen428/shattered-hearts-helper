@@ -39,13 +39,17 @@ export const bagState = {
 };
 
 class StatueCollectionBag {
-  mostRecent: {
+  readonly mostRecent: {
     strange: Rock | null;
     golden: Rock | null;
   } = {
     strange: null,
     golden: null,
   };
+
+  constructor() {
+
+  }
 
   enumerate(): Rock[] {
     const rocks: Rock[] = [];
