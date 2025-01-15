@@ -3,16 +3,24 @@
   "version": "1.0.0",
   "scripts": {
     "build": "webpack",
-    "watch": "webpack --watch",
-    "test": "webpack --config webpack.config.js webpack-test.config.js --merge --watch"
+    "watch": "npm run build -- --watch",
+    "test": "jest && npm run build-test && open ./dist/index.html",
+    "build-test": "webpack --config webpack.config.js webpack-test.config.js --merge",
+    "watch-test": "npm run build-test -- --watch"
   },
   "dependencies": {
     "alt1": "0.0.10",
     "axios": "1.7.4"
   },
   "devDependencies": {
+    "@babel/preset-env": "7.26.0",
+    "@babel/preset-typescript": "7.26.0",
     "@types/node": "20.12.7",
+    "@types/jest": "29.5.14",
+    "babel-jest": "29.7.0",
+    "jest": "29.7.0",
     "prettier": "3.4.2",
+    "ts-jest": "29.2.5",
     "ts-loader": "9.5.1",
     "typescript": "5.4.5",
     "webpack": "5.94.0",
