@@ -32,26 +32,28 @@
             align-items: center;
             gap: 0.5rem;
             margin-bottom: 0.5rem;
+        }
 
-            span {
-                display: none;
-                padding-left: 0.25rem;
-                padding-right: 1rem;
-                color: white;
-                font-size: 1rem;
-                font-family: monospace;
-            }
+        .bag-row span {
+            display: none;
+            padding-left: 0.25rem;
+            padding-right: 1rem;
+            color: white;
+            font-size: 1rem;
+            font-family: monospace;
+        }
 
-            img {
-                width: 1.5rem;
-                height: 1.5rem;
-                object-fit: contain;
-                opacity: var(--missing-rock-opacity);
+        .bag-row img {
+            width: 1.5rem;
+            height: 1.5rem;
+            object-fit: contain;
+            opacity: var(--missing-rock-opacity);
+        }
 
-                &:first-child {
-                    opacity: 1;
-                }
-            }
+        .skill-image {
+            width: 2rem !important;
+            height: 2rem !important;
+            opacity: 1 !important;
         }
 
         /*noinspection CssUnusedSymbol*/
@@ -74,7 +76,7 @@
 <body>
 <div id="bag">
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Agility_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Agility_detail.png" class="skill-image"/>
         <span>Agility</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Agility%29.png" id="strange-Agility-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Agility%29.png" id="strange-Agility-second"/>
@@ -82,7 +84,7 @@
         <img src="https://runescape.wiki/images/Golden_rock_%28Agility%29.png" id="golden-Agility-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Construction_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Construction_detail.png" class="skill-image"/>
         <span>Construction</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Construction%29.png" id="strange-Construction-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Construction%29.png" id="strange-Construction-second"/>
@@ -90,13 +92,13 @@
         <img src="https://runescape.wiki/images/Golden_rock_%28Construction%29.png" id="golden-Construction-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Cooking_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Cooking_detail.png" class="skill-image"/>
         <span>Cooking</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Cooking%29.png" id="strange-Cooking-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Cooking%29.png" id="strange-Cooking-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Crafting_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Crafting_detail.png" class="skill-image"/>
         <span>Crafting</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Crafting%29.png" id="strange-Crafting-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Crafting%29.png" id="strange-Crafting-second"
@@ -106,19 +108,19 @@
         />
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Divination_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Divination_detail.png" class="skill-image"/>
         <span>Divination</span>
         <img src="https://runescape.wiki/images/Golden_rock_%28Divination%29.png" id="golden-Divination-first"/>
         <img src="https://runescape.wiki/images/Golden_rock_%28Divination%29.png" id="golden-Divination-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Dungeoneering_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Dungeoneering_detail.png" class="skill-image"/>
         <span>Dungeoneering</span>
         <img src="https://runescape.wiki/images/Golden_rock_%28Dungeoneering%29.png" id="golden-Dungeoneering-first"/>
         <img src="https://runescape.wiki/images/Golden_rock_%28Dungeoneering%29.png" id="golden-Dungeoneering-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Farming_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Farming_detail.png" class="skill-image"/>
         <span>Farming</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Farming%29.png" id="strange-Farming-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Farming%29.png" id="strange-Farming-second"/>
@@ -126,25 +128,25 @@
         <img src="https://runescape.wiki/images/Golden_rock_%28Farming%29.png" id="golden-Farming-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Firemaking_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Firemaking_detail.png" class="skill-image"/>
         <span>Firemaking</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Firemaking%29.png" id="strange-Firemaking-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Firemaking%29.png" id="strange-Firemaking-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Fishing_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Fishing_detail.png" class="skill-image"/>
         <span>Fishing</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Fishing%29.png" id="strange-Fishing-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Fishing%29.png" id="strange-Fishing-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Fletching_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Fletching_detail.png" class="skill-image"/>
         <span>Fletching</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Fletching%29.png" id="strange-Fletching-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Fletching%29.png" id="strange-Fletching-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Herblore_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Herblore_detail.png" class="skill-image"/>
         <span>Herblore</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Herblore%29.png" id="strange-Herblore-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Herblore%29.png" id="strange-Herblore-second"/>
@@ -152,25 +154,25 @@
         <img src="https://runescape.wiki/images/Golden_rock_%28Herblore%29.png" id="golden-Herblore-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Hunter_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Hunter_detail.png" class="skill-image"/>
         <span>Hunter</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Hunter%29.png" id="strange-Hunter-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Hunter%29.png" id="strange-Hunter-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Magic_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Magic_detail.png" class="skill-image"/>
         <span>Magic</span>
         <img src="https://runescape.wiki/images/Golden_rock_%28Magic%29.png" id="golden-Magic-first"/>
         <img src="https://runescape.wiki/images/Golden_rock_%28Magic%29.png" id="golden-Magic-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Attack_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Attack_detail.png" class="skill-image"/>
         <span>Melee</span>
         <img src="https://runescape.wiki/images/Golden_rock_%28Melee%29.png" id="golden-Melee-first"/>
         <img src="https://runescape.wiki/images/Golden_rock_%28Melee%29.png" id="golden-Melee-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Mining_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Mining_detail.png" class="skill-image"/>
         <span>Mining</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Mining%29.png" id="strange-Mining-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Mining%29.png" id="strange-Mining-second"/>
@@ -178,31 +180,31 @@
         <img src="https://runescape.wiki/images/Golden_rock_%28Mining%29.png" id="golden-Mining-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Prayer_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Prayer_detail.png" class="skill-image"/>
         <span>Prayer</span>
         <img src="https://runescape.wiki/images/Golden_rock_%28Prayer%29.png" id="golden-Prayer-first"/>
         <img src="https://runescape.wiki/images/Golden_rock_%28Prayer%29.png" id="golden-Prayer-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Ranged_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Ranged_detail.png" class="skill-image"/>
         <span>Ranged</span>
         <img src="https://runescape.wiki/images/Golden_rock_%28Ranged%29.png" id="golden-Ranged-first"/>
         <img src="https://runescape.wiki/images/Golden_rock_%28Ranged%29.png" id="golden-Ranged-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Runecrafting_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Runecrafting_detail.png" class="skill-image"/>
         <span>Runecrafting</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Runecrafting%29.png" id="strange-Runecrafting-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Runecrafting%29.png" id="strange-Runecrafting-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Slayer_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Slayer_detail.png" class="skill-image"/>
         <span>Slayer</span>
         <img src="https://runescape.wiki/images/Golden_rock_%28Slayer%29.png" id="golden-Slayer-first"/>
         <img src="https://runescape.wiki/images/Golden_rock_%28Slayer%29.png" id="golden-Slayer-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Smithing_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Smithing_detail.png" class="skill-image"/>
         <span>Smithing</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Smithing%29.png" id="strange-Smithing-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Smithing%29.png" id="strange-Smithing-second"/>
@@ -210,19 +212,19 @@
         <img src="https://runescape.wiki/images/Golden_rock_%28Smithing%29.png" id="golden-Smithing-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Summoning_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Summoning_detail.png" class="skill-image"/>
         <span>Summoning</span>
         <img src="https://runescape.wiki/images/Golden_rock_%28Summoning%29.png" id="golden-Summoning-first"/>
         <img src="https://runescape.wiki/images/Golden_rock_%28Summoning%29.png" id="golden-Summoning-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Thieving_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Thieving_detail.png" class="skill-image"/>
         <span>Thieving</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Thieving%29.png" id="strange-Thieving-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Thieving%29.png" id="strange-Thieving-second"/>
     </div>
     <div class="bag-row">
-        <img src="https://runescape.wiki/images/Woodcutting_detail.png" style="width: 2rem; height: 2rem;"/>
+        <img src="https://runescape.wiki/images/Woodcutting_detail.png" class="skill-image"/>
         <span>Woodcutting</span>
         <img src="https://runescape.wiki/images/Strange_rock_%28Woodcutting%29.png" id="strange-Woodcutting-first"/>
         <img src="https://runescape.wiki/images/Strange_rock_%28Woodcutting%29.png" id="strange-Woodcutting-second"/>
