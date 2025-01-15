@@ -11,6 +11,7 @@ const testImages = ImageDetect.webpackImages({
   strangeRocksMiningSecondOnly: require("./res/strange-mining-2nd-only.data.png"),
   chatRockGained: require("./res/agig.data.png"),
   chatRockGained2: require("./res/agis.data.png"),
+  goldenSummoningGained: require("./res/golden-summoning-gained.data.png"),
 });
 
 function assert(bool: boolean, msg: string) {
@@ -109,6 +110,11 @@ function runTests() {
   assertRockCount(goldenRocks, 2);
   assert(goldenRocks.Agility.first, "Expected 1st golden agility rock");
   assert(goldenRocks.Agility.second, "Expected 2nd golden agility rock");
+
+  StatueCollectionBagImageProcessor.processScreenshot(
+    new ImgRefData(testImages.goldenSummoningGained),
+  );
+  assert(goldenRocks.Summoning.first, "Expected 1st summoning rock");
 }
 
 testImages.promise.then(() => {
