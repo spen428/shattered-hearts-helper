@@ -14,7 +14,9 @@ Shattered Hearts D&D.
 
 ## Screenshots
 
-![Screenshot-Golden-Rock-and-UI.png](doc%2FScreenshot-Golden-Rock-and-UI.png)
+![Screenshot-Golden-Rock-and-UI.png](doc/Screenshot-Golden-Rock-and-UI.png)
+
+![Statue-Collection-Bag-Detected.png](doc/Statue-Collection-Bag-Detected.png)
 
 ## Development
 
